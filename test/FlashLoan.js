@@ -22,7 +22,7 @@ describe("Flashloan", () => {
     const Token = await ethers.getContractFactory("Token");
 
     // Deploying new token of name, symbol, total supply as Prasoon, PP and 100
-    token = await Token.deploy("Dapp University", "DAPP", "1000000");
+    token = await Token.deploy("Prasoon", "PP", "100");
 
     // Deploying Flash Loan Pool
     flashLoan = await FlashLoan.deploy(token.address);
@@ -30,13 +30,11 @@ describe("Flashloan", () => {
     // Approving tokens before the deposit
     let transaction = await token
       .connect(deployer)
-      .approve(flashLoan.address, tokens(1000000));
+      .approve(flashLoan.address, tokens(100));
     await transaction.wait();
 
     // Depositing tokens into the pool
-    transaction = await flashLoan
-      .connect(deployer)
-      .depositTokens(tokens(1000000));
+    transaction = await flashLoan.connect(deployer).depositTokens(tokens(100));
     await transaction.wait();
 
     // Deploying Flash Loan Receiver
@@ -45,9 +43,7 @@ describe("Flashloan", () => {
 
   describe("Deployment", () => {
     it("sends tokens to the Crowdsale contract", async () => {
-      expect(await token.balanceOf(flashLoan.address)).to.equal(
-        tokens(1000000)
-      );
+      expect(await token.balanceOf(flashLoan.address)).to.equal(tokens(100));
     });
   });
 
