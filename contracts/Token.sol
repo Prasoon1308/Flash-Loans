@@ -78,4 +78,3 @@ contract Token {
         return true;
     }
 }
-s
