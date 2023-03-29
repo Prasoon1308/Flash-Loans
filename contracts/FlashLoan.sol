@@ -32,7 +32,7 @@ contract FlashLoan is ReentrancyGuard {
         uint256 balanceBefore = token.balanceOf(address(this));
         require(
             balanceBefore >= _borrowAmount,
-            "Not wnough tokens in the pool"
+            "Not enough tokens in the pool"
         );
 
         // Ensured by the protocol via 'depositTokens' function
